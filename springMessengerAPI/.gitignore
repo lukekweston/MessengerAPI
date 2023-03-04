@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+### Secret key to connect the api to the app
+lukes-chat-7079e-firebase-adminsdk-a8ulb-71176a5ae3.json
