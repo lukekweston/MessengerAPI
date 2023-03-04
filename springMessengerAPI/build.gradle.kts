@@ -28,14 +28,15 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	//implementation("android.arch.persistence.room:runtime:1.1.1")
-	//annotationProcessor("android.arch.persistence.room:compiler:1.1.1")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 	//Firebase notifications
 	implementation("com.google.firebase:firebase-admin:9.1.1")
+
+	// Postgres JDBC driver
+	runtimeOnly( "org.postgresql:postgresql:42.3.1")
+
 }
 
 tasks.withType<KotlinCompile> {
