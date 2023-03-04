@@ -17,6 +17,8 @@ repositories {
 	mavenCentral()
 	maven { url = uri("https://repo.spring.io/milestone") }
 	maven { url = uri("https://repo.spring.io/snapshot") }
+	//For firebase notifications
+	google()
 }
 
 dependencies {
@@ -31,6 +33,9 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	//Firebase notifications
+	implementation("com.google.firebase:firebase-admin:9.1.1")
 }
 
 tasks.withType<KotlinCompile> {

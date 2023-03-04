@@ -38,4 +38,5 @@ out/
 
 
 ### Secret key to connect the api to the app
-lukes-chat-7079e-firebase-adminsdk-a8ulb-71176a5ae3.json
+### generate this key on firebase
+firebase-service-account.json
