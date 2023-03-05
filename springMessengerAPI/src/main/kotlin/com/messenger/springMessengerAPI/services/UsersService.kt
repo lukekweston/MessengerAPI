@@ -15,7 +15,11 @@ class UsersService(private val usersRepository: UsersRepository) {
 
     fun loginAndVerifyUser(userLoginRequest: UserLoginRequest): UserLoginResponse {
         val user = usersRepository.findUserByUsernameAndPassword(userLoginRequest.userName, userLoginRequest.password)
-        return UserLoginResponse(successfulLogin = user != null, userId = user?.id, userName = user?.username, userEmail = user?.useremail)
+        if(user != null){
+            user.firebaseRegToken = userLoginRequest.firebaseRegistrationToken
+            usersRepository.save(user)
+        }
+        return UserLoginResponse(successfulLogin = user != null, userId = user?.id, userName = user?.username, userEmail = user?.userEmail)
     }
 
     fun findUsernameById(id: Int): String? { return  usersRepository.findUsersById(id)?.username}

@@ -5,5 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <include file="classpath:db/changelog/202303051143-initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/changelog/202303051653-Add_firebase_registration_tokens_to_users.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

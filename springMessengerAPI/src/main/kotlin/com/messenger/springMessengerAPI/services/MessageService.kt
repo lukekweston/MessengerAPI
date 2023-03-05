@@ -14,7 +14,8 @@ import java.time.LocalDateTime
 class MessageService(
     private val messageRepository: MessageRepository,
     private val conversationService: ConversationService,
-    private val userService: UsersService
+    private val userService: UsersService,
+    private val firebaseService: FirebaseService
 ) {
     fun getAllMessagesForConversation(conversationId: Int): List<MessageResponse> {
         return messageRepository.findAllByConversationId(conversationId).map { mapMessageToMessageResponse(it) }
@@ -36,6 +37,7 @@ class MessageService(
     }
 
     fun newMessage(newMessageRequest: NewMessageRequest): MessageResponse {
+
         val message = messageRepository.save(
             Message(
                 userId = newMessageRequest.userId,
@@ -44,6 +46,8 @@ class MessageService(
                 conversationId = newMessageRequest.conversationId
             )
         )
+
+        firebaseService.sendMessageToClients(message)
 
         return MessageResponse(
             id = message.id,

@@ -15,10 +15,14 @@ class User(
         val username: String = "",
 
         @Column(name = "user_email", unique = true, nullable = false)
-        val useremail: String = "",
+        val userEmail: String = "",
 
         @Column(name = "password", nullable = false)
         val password: String = "",
+
+        @Column(name = "firebase_reg_token", nullable = true)
+        var firebaseRegToken: String = "",
+
 
         @JsonManagedReference
         @OneToMany(mappedBy = "user")

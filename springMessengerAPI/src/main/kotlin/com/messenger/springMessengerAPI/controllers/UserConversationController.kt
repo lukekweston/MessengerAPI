@@ -9,8 +9,5 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class UserConversationController(private val userConversationService: UserConversationService) {
 
-    @GetMapping("/findOtherConversationUsers/{userId}")
-    fun findByUserName(@PathVariable userId: Int): List<Int> =
-            userConversationService.findAllOtherUserIdsForConversation(userId)
 
 }

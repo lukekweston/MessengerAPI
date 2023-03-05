@@ -6,5 +6,7 @@ data class UserLoginRequest(
         @JsonProperty("userName")
         val userName: String,
         @JsonProperty("password")
-        val password: String
+        val password: String,
+        @JsonProperty("firebaseRegistrationToken")
+        val firebaseRegistrationToken: String
 )
