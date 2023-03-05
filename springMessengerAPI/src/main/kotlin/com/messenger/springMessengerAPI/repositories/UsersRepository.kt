@@ -7,12 +7,17 @@ import org.springframework.stereotype.Repository
 
 
 @Repository
-interface UsersRepository : JpaRepository<User, Int>{
+interface UsersRepository : JpaRepository<User, Int> {
     fun findUsersByUsername(username: String): User
 
     //Login method with no auth, this is for local test purposes only - the whole login process is basic
-    @Query(nativeQuery = true, value = "select Top 1  * from Users where username = :username and password = :password COLLATE SQL_Latin1_General_CP1_CS_AS")
-    fun findUserByUsernameAndPassword(username: String, password:String): User?
+    @Query(
+        nativeQuery = true, value = "SELECT * " +
+                "FROM users " +
+                "WHERE lower(user_name) = lower(:username) AND password = :password " +
+                "LIMIT 1;"
+    )
+    fun findUserByUsernameAndPassword(username: String, password: String): User?
 
     fun findUsersById(id: Int): User?
 }

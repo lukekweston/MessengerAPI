@@ -1,7 +1,6 @@
 package com.messenger.springMessengerAPI.services
 
 import com.messenger.springMessengerAPI.models.Conversation
-import com.messenger.springMessengerAPI.models.UserConversation
 import com.messenger.springMessengerAPI.models.response.ConversationResponse
 import com.messenger.springMessengerAPI.repositories.ConversationRepository
 import com.messenger.springMessengerAPI.repositories.UserConversationRepository

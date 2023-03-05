@@ -7,7 +7,7 @@
 
     <changeSet id="create_messages_table" author="LukeWeston">
         <createTable tableName="messages">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="int"/>
@@ -22,7 +22,7 @@
 
     <changeSet id="create_users_table" author="LukeWeston">
         <createTable tableName="users">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_name" type="varchar(255)">
@@ -39,7 +39,7 @@
 
     <changeSet id="create_conversations_table" author="LukeWeston">
         <createTable tableName="conversations">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="conversation_name" type="varchar(255)"/>
@@ -56,7 +56,7 @@
             <column name="conversation_id" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>
