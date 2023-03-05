@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UsersRepository : JpaRepository<User, Int> {
-    fun findUsersByUsername(username: String): User
+    fun findUsersByUsername(username: String): User?
 
     //Login method with no auth, this is for local test purposes only - the whole login process is basic
     @Query(
@@ -18,6 +18,9 @@ interface UsersRepository : JpaRepository<User, Int> {
                 "LIMIT 1;"
     )
     fun findUserByUsernameAndPassword(username: String, password: String): User?
+
+    fun findUsersByUsernameAndId(username: String, id: Int): User?
+
 
     fun findUsersById(id: Int): User?
 }

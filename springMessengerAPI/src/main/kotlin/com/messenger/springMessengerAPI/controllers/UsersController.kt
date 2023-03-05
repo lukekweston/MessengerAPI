@@ -4,6 +4,8 @@ import com.messenger.springMessengerAPI.exceptions.ResourceNotFoundException
 import com.messenger.springMessengerAPI.models.User
 import com.messenger.springMessengerAPI.models.dto.ErrorResponse
 import com.messenger.springMessengerAPI.models.request.UserLoginRequest
+import com.messenger.springMessengerAPI.models.request.UserLogoutRequest
+import com.messenger.springMessengerAPI.models.response.SuccessResponse
 import com.messenger.springMessengerAPI.models.response.UserLoginResponse
 import com.messenger.springMessengerAPI.services.UsersService
 import org.springframework.http.HttpStatus
@@ -21,6 +23,9 @@ class UsersController(private val usersService: UsersService) {
     
     @PostMapping("/loginUser")
     fun verifyAndLogInUser(@RequestBody userLoginRequest: UserLoginRequest) : UserLoginResponse  = usersService.loginAndVerifyUser(userLoginRequest)
+
+    @PostMapping("/logoutUser")
+    fun logoutUser(@RequestBody userLogoutRequest: UserLogoutRequest) : SuccessResponse  = usersService.logoutUser(userLogoutRequest)
 
    @GetMapping("/getUsername/{id}")
     fun getUsernameById(@PathVariable id: Int): String {
