@@ -3,6 +3,7 @@ package com.messenger.springMessengerAPI.controllers
 import com.messenger.springMessengerAPI.exceptions.ResourceNotFoundException
 import com.messenger.springMessengerAPI.models.User
 import com.messenger.springMessengerAPI.models.dto.ErrorResponse
+import com.messenger.springMessengerAPI.models.request.FCMRegTokenRequest
 import com.messenger.springMessengerAPI.models.request.UserLoginRequest
 import com.messenger.springMessengerAPI.models.request.UserLogoutRequest
 import com.messenger.springMessengerAPI.models.response.SuccessResponse
@@ -41,6 +42,11 @@ class UsersController(private val usersService: UsersService) {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     fun handleResourceNotFoundException(ex: ResourceNotFoundException): ErrorResponse {
         return ErrorResponse("Resource not found", ex.message)
+    }
+
+    @PostMapping("/checkFCMRegToken")
+    fun checkFCMRegTokenMatches(@RequestBody fCMRegTokenRequest: FCMRegTokenRequest): SuccessResponse{
+        return usersService.checkFCMRegToken(fCMRegTokenRequest)
     }
 
 }

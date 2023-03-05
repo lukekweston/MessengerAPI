@@ -2,6 +2,7 @@ package com.messenger.springMessengerAPI.services
 
 import com.messenger.springMessengerAPI.repositories.UsersRepository
 import com.messenger.springMessengerAPI.models.User
+import com.messenger.springMessengerAPI.models.request.FCMRegTokenRequest
 import com.messenger.springMessengerAPI.models.request.UserLoginRequest
 import com.messenger.springMessengerAPI.models.request.UserLogoutRequest
 import com.messenger.springMessengerAPI.models.response.SuccessResponse
@@ -35,4 +36,8 @@ class UsersService(private val usersRepository: UsersRepository) {
     }
 
     fun findUsernameById(id: Int): String? { return  usersRepository.findUsersById(id)?.username}
+
+    fun checkFCMRegToken(fcmRegTokenRequest: FCMRegTokenRequest) : SuccessResponse{
+        return SuccessResponse(success = usersRepository.findUsersById(fcmRegTokenRequest.userId)?.firebaseRegToken == fcmRegTokenRequest.fcmRegToken)
+    }
 }
