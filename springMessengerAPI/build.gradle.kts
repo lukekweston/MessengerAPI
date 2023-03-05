@@ -35,7 +35,10 @@ dependencies {
 	implementation("com.google.firebase:firebase-admin:9.1.1")
 
 	// Postgres JDBC driver
-	runtimeOnly( "org.postgresql:postgresql:42.3.1")
+	runtimeOnly("org.postgresql:postgresql:42.3.8")
+
+	//Liquibase
+	implementation("org.liquibase:liquibase-core:4.17.2")
 
 }
 

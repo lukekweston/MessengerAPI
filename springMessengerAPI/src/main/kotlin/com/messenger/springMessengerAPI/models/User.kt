@@ -5,19 +5,19 @@ import jakarta.persistence.*
 
 
 @Entity
-@Table(name="Users")
+@Table(name="users")
 class User(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Int = 0,
 
-        @Column(name = "UserName", unique = true, nullable = false)
+        @Column(name = "user_name", unique = true, nullable = false)
         val username: String = "",
 
-        @Column(name = "UserEmail", unique = true, nullable = false)
+        @Column(name = "user_email", unique = true, nullable = false)
         val useremail: String = "",
 
-        @Column(name = "Password", nullable = false)
+        @Column(name = "password", nullable = false)
         val password: String = "",
 
         @JsonManagedReference

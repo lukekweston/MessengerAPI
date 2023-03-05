@@ -7,25 +7,25 @@ import java.util.*
 
 
 @Entity
-@Table(name = "Messages")
+@Table(name = "messages")
 class Message(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Int = 0,
 
-        @Column(name = "UserId")
+        @Column(name = "user_id")
         val userId: Int = 0,
 
-        @Column(name = "TextMessage")
+        @Column(name = "text_message")
         val textMessage: String? = "",
 
         //Default to max, so never get a message that has no timesent
-        @Column(name = "TimeSent")
+        @Column(name = "time_sent")
         val timeSent: LocalDateTime = LocalDateTime.MAX,
 
-        @Column(name = "UpdatedTime")
+        @Column(name = "updated_time")
         val updatedTime: LocalDateTime? = null,
 
-        @Column(name = "ConversationId")
+        @Column(name = "conversation_id")
         val conversationId: Int = 0,
 )

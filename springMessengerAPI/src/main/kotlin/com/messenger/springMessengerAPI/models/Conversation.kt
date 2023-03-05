@@ -7,16 +7,16 @@ import java.time.LocalDateTime
 
 
 @Entity
-@Table(name = "Conversations")
+@Table(name = "conversations")
 class Conversation(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Int = 0,
 
-        @Column(name = "ConversationName")
+        @Column(name = "conversation_name")
         val conversationName: String? = null,
 
-        @Column(name = "LastUpdated")
+        @Column(name = "last_updated")
         val lastUpdated: LocalDateTime? = null,
 
         @JsonManagedReference

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="create_messages_table" author="LukeWeston">
+        <createTable tableName="messages">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int"/>
+            <column name="text_message" type="varchar(255)"/>
+            <column name="time_sent" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_time" type="datetime"/>
+            <column name="conversation_id" type="int"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_users_table" author="LukeWeston">
+        <createTable tableName="users">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_name" type="varchar(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="user_email" type="varchar(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_conversations_table" author="LukeWeston">
+        <createTable tableName="conversations">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="conversation_name" type="varchar(255)"/>
+            <column name="last_updated" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create_user_conversation_table" author="LukeWeston">
+        <createTable tableName="user_conversation">
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conversation_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_conversation"
+                                 constraintName="fk_user_conversation_user"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+        <addForeignKeyConstraint baseColumnNames="conversation_id"
+                                 baseTableName="user_conversation"
+                                 constraintName="fk_user_conversation_conversation"
+                                 referencedColumnNames="id"
+                                 referencedTableName="conversations"/>
+    </changeSet>
+
+</databaseChangeLog>
