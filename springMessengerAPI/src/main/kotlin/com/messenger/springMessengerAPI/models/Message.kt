@@ -28,4 +28,7 @@ class Message(
 
         @Column(name = "conversation_id")
         val conversationId: Int = 0,
+
+        @Column(name = "image_data")
+        val imageData: String? = null,
 )

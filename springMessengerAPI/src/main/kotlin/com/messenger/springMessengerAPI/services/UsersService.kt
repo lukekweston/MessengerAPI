@@ -38,6 +38,6 @@ class UsersService(private val usersRepository: UsersRepository) {
     fun findUsernameById(id: Int): String? { return  usersRepository.findUsersById(id)?.username}
 
     fun checkFCMRegToken(fcmRegTokenRequest: FCMRegTokenRequest) : SuccessResponse{
-        return SuccessResponse(success = usersRepository.findUsersById(fcmRegTokenRequest.userId)?.firebaseRegToken == fcmRegTokenRequest.fcmRegToken)
+        return SuccessResponse(success = usersRepository.findUsersById(fcmRegTokenRequest.userId)?.firebaseRegToken == fcmRegTokenRequest.firebaseRegistrationToken)
     }
 }

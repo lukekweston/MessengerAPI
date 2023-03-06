@@ -43,7 +43,8 @@ class MessageService(
                 userId = newMessageRequest.userId,
                 textMessage = newMessageRequest.message,
                 timeSent = LocalDateTime.now(),
-                conversationId = newMessageRequest.conversationId
+                conversationId = newMessageRequest.conversationId,
+                imageData = newMessageRequest.imageBase64
             )
         )
 

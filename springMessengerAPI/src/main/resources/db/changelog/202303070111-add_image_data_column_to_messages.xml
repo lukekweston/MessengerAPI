@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet author="Luke Weston" id="add_image_data_column">
+        <addColumn tableName="messages">
+            <column name="image_data" type="CLOB">
+                <constraints nullable="true" checkConstraint="LEN(image_data) &lt;= 104857600"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
