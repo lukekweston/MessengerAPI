@@ -7,8 +7,11 @@
 
     <changeSet author="Luke Weston" id="add_image_data_column">
         <addColumn tableName="messages">
-            <column name="image_data" type="CLOB">
-                <constraints nullable="true" checkConstraint="LEN(image_data) &lt;= 104857600"/>
+            <column name="image_path_full_res" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="image_path_low_res" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
         </addColumn>
     </changeSet>

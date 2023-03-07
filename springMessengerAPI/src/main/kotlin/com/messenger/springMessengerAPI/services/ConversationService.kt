@@ -21,13 +21,18 @@ class ConversationService(private val conversationRepository: ConversationReposi
         }
     }
 
+    fun getConversationNameSetValueFromId(conversationId: Int): String?{
+        return conversationRepository.findById(conversationId).get().conversationName
+    }
+
     //Conversation name will either be the name specified for a conversation
     //Or it will be a list of the participants
     fun getConversationName(conversation: Conversation, userId: Int): String {
-        //
+        //return the conversationname if it exists
         if (!conversation.conversationName.isNullOrEmpty()) {
             return conversation.conversationName
         }
+
         //If conversation list has one member, its with yourself
         if (conversation.userConversation.size == 1) {
             return conversation.userConversation.first().user?.username ?: "Unknown conversation"

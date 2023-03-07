@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service
 class FirebaseService(
     private val fcm: FirebaseMessaging,
     private val userConversationService: UserConversationService,
-    private val usersService: UsersService
+    private val usersService: UsersService,
+    private val conversationService: ConversationService
 ) {
 
     fun sendMessageToClients(message: com.messenger.springMessengerAPI.models.Message) {
@@ -28,15 +29,17 @@ class FirebaseService(
 
         val usernameSending = usersService.findUsernameById(message.userId)
 
+        val type = if(message.imagePathFullRes == null) "newMessage" else "newImageMessage"
+
         val data = mapOf(
-            "type" to "newMessage",
+            "type" to type,
             "id" to message.id.toString(),
             "userId" to message.userId.toString(),
             "textMessage" to message.textMessage,
             "timeSent" to message.timeSent.toString(),
             "updatedTime" to message.updatedTime.toString(),
             "conversationId" to message.conversationId.toString(),
-            "usernameSending" to usernameSending
+            "usernameSending" to usernameSending,
         )
 
 

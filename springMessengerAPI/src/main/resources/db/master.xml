@@ -6,6 +6,6 @@
 
     <include file="classpath:db/changelog/202303051143-initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="classpath:db/changelog/202303051653-Add_firebase_registration_tokens_to_users.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:db/changelog/202303070111-add_image_data_column_to_messages.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/changelog/202303079143-add_full_and_low_res_image_paths_to_message_table.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

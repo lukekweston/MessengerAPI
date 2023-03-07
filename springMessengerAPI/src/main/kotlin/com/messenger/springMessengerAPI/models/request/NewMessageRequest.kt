@@ -11,5 +11,4 @@ data class NewMessageRequest (
     val message: String,
     @JsonProperty("imageBase64")
     val imageBase64: String? = null
-
 )

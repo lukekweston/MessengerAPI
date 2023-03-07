@@ -18,4 +18,7 @@ data class MessageResponse(
     val timeSent: LocalDateTime,
     @JsonProperty("timeUpdated")
     val updatedTime: LocalDateTime?,
-    )
+    @JsonProperty("imageLowRes")
+    val imageLowRes: String? = null
+
+)
