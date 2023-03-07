@@ -3,6 +3,7 @@ package com.messenger.springMessengerAPI.services
 import com.messenger.springMessengerAPI.models.Message
 import com.messenger.springMessengerAPI.models.request.NewMessageRequest
 import com.messenger.springMessengerAPI.models.request.UpdateMessageRequest
+import com.messenger.springMessengerAPI.models.response.ImageResponse
 import com.messenger.springMessengerAPI.models.response.MessageResponse
 import com.messenger.springMessengerAPI.repositories.MessageRepository
 import org.springframework.beans.factory.annotation.Value
@@ -17,7 +18,6 @@ import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 import java.io.File
 import java.io.IOException
-import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
@@ -189,5 +189,22 @@ class MessageService(
         val encodedString = Base64.getEncoder().encodeToString(resizedBytes)
 
         return encodedString
+    }
+
+    fun getImageForMessage(messageId: Int, lowRes: Boolean = true): ImageResponse{
+        val message = messageRepository.findById(messageId).get()
+
+        val image = if (lowRes) message.imagePathLowRes else message.imagePathFullRes
+        var imageBase64 = ""
+        if(!image.isNullOrEmpty()) {
+            imageBase64 = readFileAsBase64(image)
+        }
+        return ImageResponse(messageId = messageId, imageBase64 = imageBase64)
+    }
+
+    fun readFileAsBase64(filePath: String): String {
+        val file = File(filePath)
+        val bytes = file.readBytes()
+        return Base64.getEncoder().encodeToString(bytes)
     }
 }
