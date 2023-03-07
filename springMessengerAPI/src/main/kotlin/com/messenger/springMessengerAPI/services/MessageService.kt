@@ -129,7 +129,9 @@ class MessageService(
             username = userService.findUsernameById(message.userId)!!,
             textMessage = message.textMessage,
             timeSent = message.timeSent,
-            updatedTime = message.updatedTime
+            updatedTime = message.updatedTime,
+            imageLowRes = if(message.imagePathLowRes != null) readFileAsBase64(message.imagePathLowRes!!) else null
+
         )
     }
 
@@ -190,6 +192,8 @@ class MessageService(
 
         return encodedString
     }
+
+
 
     fun getImageForMessage(messageId: Int, lowRes: Boolean = true): ImageResponse{
         val message = messageRepository.findById(messageId).get()
