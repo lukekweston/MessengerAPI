@@ -9,6 +9,8 @@ data class NewMessageRequest (
     val conversationId: Int,
     @JsonProperty("message")
     val message: String,
-    @JsonProperty("imageBase64")
-    val imageBase64: String? = null
+    @JsonProperty("imageBase64FullRes")
+    val imageBase64FullRes: String? = null,
+    @JsonProperty("imageBase64LowRes")
+    val imageBase64LowRes: String? = null
 )

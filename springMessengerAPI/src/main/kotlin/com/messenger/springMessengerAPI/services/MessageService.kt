@@ -69,17 +69,14 @@ class MessageService(
             )
         )
 
-        var lowResImageBase64: String? = null
         //Save the images to files using the newly created messageRow as the id of the images
-        if(newMessageRequest.imageBase64 != null) {
+        if(newMessageRequest.imageBase64FullRes != null) {
             //Save the full image and compressed images in their directories, update the value on message
-            message.imagePathFullRes = saveImage(newMessageRequest.imageBase64, message.id, true)
-
-            //Compress the image to a max size of 500kb
-            lowResImageBase64 = resizeImage(newMessageRequest.imageBase64)
-            //Save the image compressed to 500kb
-            message.imagePathLowRes = saveImage(lowResImageBase64, message.id, false)
-
+            message.imagePathFullRes = saveImage(newMessageRequest.imageBase64FullRes, message.id, true)
+        }
+        
+        if(newMessageRequest.imageBase64LowRes != null) {
+            message.imagePathLowRes = saveImage(newMessageRequest.imageBase64LowRes, message.id, false)
             messageRepository.save(message)
         }
 
@@ -92,8 +89,7 @@ class MessageService(
             username = userService.findUsernameById(message.userId)!!,
             textMessage = message.textMessage,
             timeSent = message.timeSent,
-            updatedTime = message.updatedTime,
-            imageLowRes = lowResImageBase64
+            updatedTime = message.updatedTime
         )
     }
 
@@ -148,49 +144,6 @@ class MessageService(
         Files.write(Paths.get(file.absolutePath), data)
         return imagePath
 
-    }
-
-    fun resizeImage(base64Image: String): String {
-        val maxFileSize = 128000 // 128 KB in bytes
-
-        val pattern = "[^A-Za-z0-9+/=]"
-        val cleanImageString = base64Image.replace(Regex(pattern), "")
-        val decodedBytes = Base64.getDecoder().decode(cleanImageString)
-
-        // Check if the image is already below the maximum size
-        if (decodedBytes.size <= maxFileSize) {
-            return base64Image
-        }
-
-        val inputStream = ByteArrayInputStream(decodedBytes)
-        val originalImage = ImageIO.read(inputStream)
-
-        val width = originalImage.width
-        val height = originalImage.height
-
-        var newWidth = width
-        var newHeight = height
-
-        // Resize image if it's too large
-        val scaleFactor = Math.sqrt(maxFileSize.toDouble() / decodedBytes.size)
-        newWidth = (width * scaleFactor).toInt()
-        newHeight = (height * scaleFactor).toInt()
-
-        val resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH)
-        val bufferedImage = BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB)
-        bufferedImage.graphics.drawImage(resizedImage, 0, 0, null)
-
-        val outputStream = ByteArrayOutputStream()
-        try {
-            ImageIO.write(bufferedImage, "jpg", outputStream)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
-        val resizedBytes = outputStream.toByteArray()
-        val encodedString = Base64.getEncoder().encodeToString(resizedBytes)
-
-        return encodedString
     }
 
 
