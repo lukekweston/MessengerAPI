@@ -26,7 +26,7 @@ class UsersService(private val usersRepository: UsersRepository) {
     }
 
     fun logoutUser(userLogoutRequest: UserLogoutRequest): SuccessResponse {
-        val user = usersRepository.findUsersByUsernameAndId(userLogoutRequest.userName, userLogoutRequest.userId)
+        val user = usersRepository.findUsersByUsernameAndId(userLogoutRequest.username, userLogoutRequest.userId)
         if(user != null){
             user.firebaseRegToken = ""
             usersRepository.save(user)

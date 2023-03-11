@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet author="Luke Weston" id="add_constraint_to_user_name_column">
+        <sql>
+            ALTER TABLE Users
+                ADD CONSTRAINT user_name_alpha_numeric_check CHECK (user_name ~ '^[A-Za-z0-9]+$');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

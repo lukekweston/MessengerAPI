@@ -24,4 +24,12 @@ interface UsersRepository : JpaRepository<User, Int> {
 
     fun findUsersById(id: Int): User?
 
+    @Query(
+        nativeQuery = true, value = "SELECT * " +
+                "FROM users " +
+                "WHERE lower(user_name) = lower(:usernameOrEmail) or lower(user_email) = lower(:usernameOrEmail) " +
+                "LIMIT 1;"
+    )
+    fun findUsersByUsernameOrUserEmail(usernameOrEmail: String): User?
+
 }
