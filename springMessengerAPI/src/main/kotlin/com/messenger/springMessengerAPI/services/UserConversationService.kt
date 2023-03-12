@@ -1,6 +1,5 @@
 package com.messenger.springMessengerAPI.services
 
-import com.google.firebase.database.Exclude
 import com.messenger.springMessengerAPI.models.User
 import com.messenger.springMessengerAPI.repositories.UserConversationRepository
 import org.springframework.stereotype.Service
@@ -12,7 +11,7 @@ class UserConversationService(
 ) {
 
     fun findAllOtherUserIdsForConversation(userIdToExclude: Int, conversationId: Int): List<User> {
-        val allUsersInConversation = userConversationRepository.findAllById_ConversationId(conversationId)
+        val allUsersInConversation = userConversationRepository.findAllByConversationId(conversationId)
 
         val userList: List<User> =
             allUsersInConversation.mapNotNull { it.takeIf { userConvo -> userConvo.user != null }?.user }

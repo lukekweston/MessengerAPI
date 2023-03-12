@@ -11,6 +11,8 @@ interface FriendRepository : JpaRepository<Friend, Int> {
     fun findBySelfUserIdAndFriendUserid(selfUserId: Int, friendId: Int): Friend?
 
 
-    fun findAllBySelfUserId(selfUserId: Int) : List<Friend>
+    fun findAllBySelfUserId(selfUserId: Int): List<Friend>
+
+    fun findFriendBySelfUserIdAndFriendUseridAndStatus(selfUserId: Int, friendUserId: Int, status: Int): Friend?
 
 }

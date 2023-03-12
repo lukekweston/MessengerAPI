@@ -19,6 +19,9 @@ class Conversation(
         @Column(name = "last_updated")
         val lastUpdated: LocalDateTime? = null,
 
+        @Column(name = "group_conversation")
+        val groupConversation: Boolean = false,
+
         @JsonManagedReference
         @OneToMany(mappedBy = "conversation", fetch = FetchType.LAZY)
         val userConversation: MutableList<UserConversation> = mutableListOf()

@@ -9,5 +9,6 @@
     <include file="classpath:db/changelog/202303079143-add_full_and_low_res_image_paths_to_message_table.xml" relativeToChangelogFile="false"/>
     <include file="classpath:db/changelog/202303110014-add_friends_table.xml" relativeToChangelogFile="false"/>
     <include file="classpath:db/changelog/202303111157-added_constraint_on_users_user_name_to_be_alpha_numeric.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/changelog/202303122345-added_boolean_flag_on_conversation_to_show_if_is_a_group_conversation.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

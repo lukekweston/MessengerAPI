@@ -1,17 +1,15 @@
 package com.messenger.springMessengerAPI.repositories
 
 import com.messenger.springMessengerAPI.models.UserConversation
-import com.messenger.springMessengerAPI.models.UserConversationId
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
 
 @Repository
-interface UserConversationRepository : JpaRepository<UserConversation, UserConversationId>{
+interface UserConversationRepository : JpaRepository<UserConversation, Int> {
 
 
-    fun findAllById_UserId(userId: Int): List<UserConversation>
-    fun findAllById_ConversationId(userId: Int): List<UserConversation>
+    fun findAllByUserId(userId: Int): List<UserConversation>
+    fun findAllByConversationId(conversationId: Int): List<UserConversation>
 
 }
