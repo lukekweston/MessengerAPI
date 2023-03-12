@@ -126,23 +126,35 @@ class FriendService(
             val userSelf = userRepository.findUsersById(updateFriendStatusRequest.selfUserId)
             val userTo = userRepository.findUsersByUsernameOrUserEmail(updateFriendStatusRequest.friendUsername)
 
-            //Update the self To Friend relationship
-            val selfToFriend = friendRepository.findBySelfUserIdAndFriendUserid(userSelf!!.id, userTo!!.id)
-            selfToFriend!!.status = FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus)
-            friendRepository.save(selfToFriend)
+            //If friendship status is declined, delete the entry
+            if(FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus) == FriendshipStatus.Declined) {
+                val selfToFriend = friendRepository.findBySelfUserIdAndFriendUserid(userSelf!!.id, userTo!!.id)
+                friendRepository.delete(selfToFriend!!)
+                val friendToSelf = friendRepository.findBySelfUserIdAndFriendUserid(userTo!!.id, userSelf!!.id)
+                friendRepository.delete(friendToSelf!!)
 
-            //Update the Friend to self relationship
-            val friendToSelf = friendRepository.findBySelfUserIdAndFriendUserid(userTo!!.id, userSelf!!.id)
-            friendToSelf!!.status = FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus)
-            friendRepository.save(friendToSelf)
+            }
+            //Else update exising entries
+            else{
+                //Update the self To Friend relationship
+                val selfToFriend = friendRepository.findBySelfUserIdAndFriendUserid(userSelf!!.id, userTo!!.id)
+                selfToFriend!!.status = FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus)
+                friendRepository.save(selfToFriend)
+
+                //Update the Friend to self relationship
+                val friendToSelf = friendRepository.findBySelfUserIdAndFriendUserid(userTo!!.id, userSelf!!.id)
+                friendToSelf!!.status = FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus)
+                friendRepository.save(friendToSelf)
+            }
 
             firebaseService.sendFriendStatusUpdate(userSelf, userTo, FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus))
 
             return SuccessResponse(true)
         }
         catch (e: Exception){
-            print("Error updating friend status")
-            print(e.stackTrace)
+            println("Error updating friend status")
+            println(e.stackTrace)
+            println(e.message)
             return SuccessResponse(false)
         }
 

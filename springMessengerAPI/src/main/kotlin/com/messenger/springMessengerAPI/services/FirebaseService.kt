@@ -76,7 +76,7 @@ class FirebaseService(
 
         val data = mapOf(
             "title" to fromUser!!.username + " sent you a friend request",
-            "body" to "Accept to start chatting"
+            "body" to "Accept to start chatting",
             "type" to "friendRequest",
             "fromUserId" to fromUser.id.toString(),
             "fromUserName" to fromUser.username,
