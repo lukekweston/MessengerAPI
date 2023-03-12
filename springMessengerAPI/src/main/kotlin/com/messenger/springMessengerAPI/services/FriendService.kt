@@ -126,8 +126,9 @@ class FriendService(
             val userSelf = userRepository.findUsersById(updateFriendStatusRequest.selfUserId)
             val userTo = userRepository.findUsersByUsernameOrUserEmail(updateFriendStatusRequest.friendUsername)
 
-            //If friendship status is declined, delete the entry
-            if(FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus) == FriendshipStatus.Declined) {
+            //If friendship status is declined ore removed, delete the entry
+            if(FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus) == FriendshipStatus.Declined ||
+                FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus) == FriendshipStatus.Removed) {
                 val selfToFriend = friendRepository.findBySelfUserIdAndFriendUserid(userSelf!!.id, userTo!!.id)
                 friendRepository.delete(selfToFriend!!)
                 val friendToSelf = friendRepository.findBySelfUserIdAndFriendUserid(userTo!!.id, userSelf!!.id)
