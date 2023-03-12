@@ -1,6 +1,7 @@
 package com.messenger.springMessengerAPI.services
 
 import com.messenger.springMessengerAPI.models.Conversation
+import com.messenger.springMessengerAPI.models.FriendshipStatus
 import com.messenger.springMessengerAPI.models.UserConversation
 import com.messenger.springMessengerAPI.models.request.UsersForConversationRequest
 import com.messenger.springMessengerAPI.models.response.ConversationResponse
@@ -76,9 +77,9 @@ class ConversationService(
             throw RuntimeException("UserIdSelf and OtherUserId cannot be equal")
         }
         //Check that the two users are friends
-       // if(friendRepository.findFriendBySelfUserIdAndFriendUseridAndStatus(usersForConversationRequest.userIdSelf, usersForConversationRequest.otherUserId, FriendshipStatus.Friends.ordinal) == null){
-//            throw RuntimeException("These two users are not friends")
-       // }
+        if(friendRepository.findFriendBySelfUserIdAndFriendUseridAndStatus(usersForConversationRequest.userIdSelf, usersForConversationRequest.otherUserId, FriendshipStatus.Friends) == null){
+            throw RuntimeException("These two users are not friends")
+        }
 
         val userSelf = usersRepository.findUsersById(usersForConversationRequest.userIdSelf)
         val userOther = usersRepository.findUsersById(usersForConversationRequest.otherUserId)
@@ -118,9 +119,6 @@ class ConversationService(
                 conversationName = getConversationName(conversationNew, userSelf.id),
                 lastUpdated = conversationNew.lastUpdated
             )
-
         }
-
-
     }
 }
