@@ -11,5 +11,6 @@ interface UserConversationRepository : JpaRepository<UserConversation, Int> {
 
     fun findAllByUserId(userId: Int): List<UserConversation>
     fun findAllByConversationId(conversationId: Int): List<UserConversation>
+    fun deleteAllByConversationId(conversationId: Int)
 
 }

@@ -5,9 +5,11 @@ import java.time.LocalDateTime
 
 data class ConversationResponse(
     @JsonProperty("id")
-    val id: Int,
+    val id: Int? = null,
     @JsonProperty("conversationName")
-    val conversationName: String?,
+    val conversationName: String? = null,
     @JsonProperty("lastUpdated")
-    val lastUpdated: LocalDateTime?,
+    val lastUpdated: LocalDateTime? = null,
+    @JsonProperty("success")
+    val success: Boolean = true
 )

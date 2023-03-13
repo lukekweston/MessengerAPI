@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface MessageRepository : JpaRepository<Message, Int>{
     fun findAllByConversationId(conversationId: Int): List<Message>
+    fun deleteAllByConversationId(conversationId: Int)
 }

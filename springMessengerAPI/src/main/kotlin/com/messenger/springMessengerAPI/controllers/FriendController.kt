@@ -3,6 +3,7 @@ package com.messenger.springMessengerAPI.controllers
 import com.messenger.springMessengerAPI.models.Friend
 import com.messenger.springMessengerAPI.models.request.NewFriendRequest
 import com.messenger.springMessengerAPI.models.request.UpdateFriendStatusRequest
+import com.messenger.springMessengerAPI.models.response.ConversationResponse
 import com.messenger.springMessengerAPI.models.response.FriendRequestResponse
 import com.messenger.springMessengerAPI.models.response.FriendResponse
 import com.messenger.springMessengerAPI.models.response.SuccessResponse
@@ -29,7 +30,7 @@ class FriendController(private val friendService: FriendService) {
     }
 
     @PostMapping("/updateFriendStatus")
-    fun updateFriendStatus(@RequestBody updateFriendshipRequest: UpdateFriendStatusRequest): SuccessResponse{
+    fun updateFriendStatus(@RequestBody updateFriendshipRequest: UpdateFriendStatusRequest): ConversationResponse{
         return friendService.updateFriendship(updateFriendshipRequest)
     }
 

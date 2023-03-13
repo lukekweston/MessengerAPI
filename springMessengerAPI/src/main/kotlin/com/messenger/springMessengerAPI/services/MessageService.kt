@@ -46,7 +46,7 @@ class MessageService(
 
         val messages = mutableListOf<MessageResponse>()
         for (conversation in conversationsUserBelongsToo) {
-            messages += messageRepository.findAllByConversationId(conversationId = conversation.id)
+            messages += messageRepository.findAllByConversationId(conversationId = conversation.id!!)
                 .map { mapMessageToMessageResponse(it) }
         }
         return messages

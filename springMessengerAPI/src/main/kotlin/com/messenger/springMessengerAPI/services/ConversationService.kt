@@ -2,13 +2,10 @@ package com.messenger.springMessengerAPI.services
 
 import com.messenger.springMessengerAPI.models.Conversation
 import com.messenger.springMessengerAPI.models.FriendshipStatus
+import com.messenger.springMessengerAPI.models.User
 import com.messenger.springMessengerAPI.models.UserConversation
-import com.messenger.springMessengerAPI.models.request.UsersForConversationRequest
 import com.messenger.springMessengerAPI.models.response.ConversationResponse
-import com.messenger.springMessengerAPI.repositories.ConversationRepository
-import com.messenger.springMessengerAPI.repositories.FriendRepository
-import com.messenger.springMessengerAPI.repositories.UserConversationRepository
-import com.messenger.springMessengerAPI.repositories.UsersRepository
+import com.messenger.springMessengerAPI.repositories.*
 import org.springframework.stereotype.Service
 
 
@@ -16,8 +13,8 @@ import org.springframework.stereotype.Service
 class ConversationService(
     private val conversationRepository: ConversationRepository,
     private val userConversationRepository: UserConversationRepository,
-    private val usersRepository: UsersRepository,
-    private val friendRepository: FriendRepository
+    private val friendRepository: FriendRepository,
+    private val messageRepository: MessageRepository
 ) {
 
     fun getConversationsForUser(userId: Int): List<ConversationResponse> {
@@ -64,36 +61,34 @@ class ConversationService(
         }
     }
 
+    fun findAPrivateConversationForTwoUsers(userSelfId: Int, userOtherId: Int): Conversation?{
+        return conversationRepository.selectAPrivateNonGroupConversationForTwoUsers(userSelfId, userOtherId)
+    }
+
     /**
      * This method returns a conversation if it already exists for two users, or will create a conversation for the two users
      *
      * @param usersForConversationRequest - contains the ids of the two users that the conversation is for
      * @return a conversationResponse
      */
-    fun getOrStartAPrivateConversationForTwoUsers(usersForConversationRequest: UsersForConversationRequest): ConversationResponse {
+    fun getOrStartAPrivateConversationForTwoUsers(userSelf: User, userOther: User): Conversation? {
 
         //Edge case, users are equal
-        if(usersForConversationRequest.userIdSelf == usersForConversationRequest.otherUserId){
+        if(userSelf.id == userOther.id){
             throw RuntimeException("UserIdSelf and OtherUserId cannot be equal")
         }
         //Check that the two users are friends
-        if(friendRepository.findFriendBySelfUserIdAndFriendUseridAndStatus(usersForConversationRequest.userIdSelf, usersForConversationRequest.otherUserId, FriendshipStatus.Friends) == null){
+        if(friendRepository.findFriendBySelfUserIdAndFriendUseridAndStatus(userSelf.id, userOther.id, FriendshipStatus.Friends) == null){
             throw RuntimeException("These two users are not friends")
         }
 
-        val userSelf = usersRepository.findUsersById(usersForConversationRequest.userIdSelf)
-        val userOther = usersRepository.findUsersById(usersForConversationRequest.otherUserId)
 
         //Check that the conversation doesn't already exist
-        val conversationAlreadyExists =
-            conversationRepository.selectAPrivateNonGroupConversationForTwoUsers(userSelf!!.id, userOther!!.id)
+        val conversationAlreadyExists = findAPrivateConversationForTwoUsers(userSelf.id, userOther.id)
+
         //If it does, return this conversation
         if (conversationAlreadyExists != null) {
-            return ConversationResponse(
-                id = conversationAlreadyExists.id,
-                conversationName = getConversationName(conversationAlreadyExists, userSelf.id),
-                lastUpdated = conversationAlreadyExists.lastUpdated
-            )
+            return conversationAlreadyExists
         }
 
         else{
@@ -114,11 +109,14 @@ class ConversationService(
 
             conversationRepository.save(conversationNew)
 
-            return ConversationResponse(
-                id = conversationNew.id,
-                conversationName = getConversationName(conversationNew, userSelf.id),
-                lastUpdated = conversationNew.lastUpdated
-            )
+            return conversationNew
         }
+    }
+
+    //Todo - delete saved images too
+    fun deleteAllDataToDoWithConversation(conversation: Conversation){
+        userConversationRepository.deleteAllByConversationId(conversation.id)
+        messageRepository.deleteAllByConversationId(conversation.id)
+        conversationRepository.delete(conversation)
     }
 }

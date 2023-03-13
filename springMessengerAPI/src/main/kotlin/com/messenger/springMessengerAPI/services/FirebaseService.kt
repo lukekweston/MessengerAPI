@@ -4,6 +4,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.Message
 import com.google.firebase.messaging.MulticastMessage
 import com.google.firebase.messaging.Notification
+import com.messenger.springMessengerAPI.models.Conversation
 import com.messenger.springMessengerAPI.models.FriendshipStatus
 import com.messenger.springMessengerAPI.models.User
 import com.messenger.springMessengerAPI.repositories.UsersRepository
@@ -69,7 +70,7 @@ class FirebaseService(
         val toUser = usersRepository.findUsersById(toUserId)
 
         //Return if toUser is not logged in on a device
-        if(toUser!!.firebaseRegToken.isNullOrEmpty()){
+        if (toUser!!.firebaseRegToken.isNullOrEmpty()) {
             return
         }
 
@@ -93,21 +94,31 @@ class FirebaseService(
 
     }
 
-    fun sendFriendStatusUpdate(userFrom:User, userTo: User, friendshipStatus: FriendshipStatus) {
+    fun sendFriendStatusUpdate(
+        userFrom: User,
+        userTo: User,
+        friendshipStatus: FriendshipStatus,
+        conversation: Conversation?
+    ) {
 
         //Return if toUser is not logged in on a device
-        if(userTo!!.firebaseRegToken.isNullOrEmpty()){
+        if (userTo!!.firebaseRegToken.isNullOrEmpty()) {
             return
         }
 
         val data = mapOf(
-            "title" to if(friendshipStatus == FriendshipStatus.Friends) "${userTo.username} accepted your friend request!" else "",
+            "title" to if (friendshipStatus == FriendshipStatus.Friends) "${userTo.username} accepted your friend request!" else "",
             "body" to "You can now start chatting",
             "type" to "friendStatusUpdate",
             "status" to friendshipStatus.toString(),
             "fromUserId" to userFrom.id.toString(),
             "fromUserName" to userFrom.username,
             "toUserId" to userTo!!.id.toString(),
+            "conversationId" to (conversation?.id.toString() ?: ""),
+            "conversationName" to if (conversation != null) conversationService.getConversationName(
+                conversation,
+                userTo.id
+            ) else ""
         )
 
 

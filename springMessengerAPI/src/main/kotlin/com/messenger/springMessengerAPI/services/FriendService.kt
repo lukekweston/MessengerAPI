@@ -1,13 +1,16 @@
 package com.messenger.springMessengerAPI.services
 
+import com.messenger.springMessengerAPI.models.Conversation
 import com.messenger.springMessengerAPI.models.Friend
 import com.messenger.springMessengerAPI.models.FriendshipStatus
 import com.messenger.springMessengerAPI.models.request.NewFriendRequest
 import com.messenger.springMessengerAPI.models.request.UpdateFriendStatusRequest
+import com.messenger.springMessengerAPI.models.response.ConversationResponse
 import com.messenger.springMessengerAPI.models.response.FriendRequestResponse
 import com.messenger.springMessengerAPI.models.response.FriendResponse
 import com.messenger.springMessengerAPI.models.response.SuccessResponse
 import com.messenger.springMessengerAPI.repositories.FriendRepository
+import com.messenger.springMessengerAPI.repositories.UserConversationRepository
 import com.messenger.springMessengerAPI.repositories.UsersRepository
 import org.springframework.stereotype.Service
 
@@ -16,11 +19,12 @@ import org.springframework.stereotype.Service
 class FriendService(
     private val friendRepository: FriendRepository,
     private val userRepository: UsersRepository,
+    private val conversationService: ConversationService,
     private val firebaseService: FirebaseService
 ) {
 
     fun findAllFriendsForAUser(userId: Int): List<FriendResponse> {
-        return friendRepository.findAllBySelfUserId(userId).map{
+        return friendRepository.findAllBySelfUserId(userId).map {
             FriendResponse(
                 friendUserId = it.friendUserid,
                 friendUserName = userRepository.findUsersById(it.friendUserid)!!.username,
@@ -121,42 +125,84 @@ class FriendService(
     }
 
 
-    fun updateFriendship(updateFriendStatusRequest: UpdateFriendStatusRequest): SuccessResponse{
+    /**
+     * This method updates the friendship status of two people, and creates or deletes a conversation depending
+     * if the friendship status is Friends or declined/removed
+     *
+     *
+     * @param updateFriendStatusRequest - contains the friends to be updated and the new status
+     * @return Success response true if method is completed without error, else false
+     */
+    //Todo - this method only supports FriendshipStatus of Friends, declined, removed - in the future can do more statuses
+    fun updateFriendship(updateFriendStatusRequest: UpdateFriendStatusRequest): ConversationResponse {
         try {
             val userSelf = userRepository.findUsersById(updateFriendStatusRequest.selfUserId)
             val userTo = userRepository.findUsersByUsernameOrUserEmail(updateFriendStatusRequest.friendUsername)
 
+            var conversation: Conversation? = null
+
+            val newFriendshipStatus = FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus)
+
             //If friendship status is declined ore removed, delete the entry
-            if(FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus) == FriendshipStatus.Declined ||
-                FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus) == FriendshipStatus.Removed) {
+            //Delete existing conversation and messages if they exist
+            if (newFriendshipStatus == FriendshipStatus.Declined || newFriendshipStatus == FriendshipStatus.Removed
+            ) {
                 val selfToFriend = friendRepository.findBySelfUserIdAndFriendUserid(userSelf!!.id, userTo!!.id)
                 friendRepository.delete(selfToFriend!!)
                 val friendToSelf = friendRepository.findBySelfUserIdAndFriendUserid(userTo!!.id, userSelf!!.id)
                 friendRepository.delete(friendToSelf!!)
 
+
+                val existingConversation = conversationService.findAPrivateConversationForTwoUsers(userSelf.id, userTo.id)
+
+                //If the conversation exists, delete the data
+                if(existingConversation != null){
+                    //Delete userConversations
+                    conversationService.deleteAllDataToDoWithConversation(existingConversation)
+                }
+
+
+
             }
-            //Else update exising entries
-            else{
+            //Friends - so create a new relationship and create a new conversation for these two friends
+            else if (newFriendshipStatus == FriendshipStatus.Friends) {
                 //Update the self To Friend relationship
                 val selfToFriend = friendRepository.findBySelfUserIdAndFriendUserid(userSelf!!.id, userTo!!.id)
-                selfToFriend!!.status = FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus)
+                selfToFriend!!.status = newFriendshipStatus
                 friendRepository.save(selfToFriend)
 
                 //Update the Friend to self relationship
                 val friendToSelf = friendRepository.findBySelfUserIdAndFriendUserid(userTo!!.id, userSelf!!.id)
-                friendToSelf!!.status = FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus)
+                friendToSelf!!.status = newFriendshipStatus
                 friendRepository.save(friendToSelf)
+
+
+                //Create a new conversation
+                conversation = conversationService.getOrStartAPrivateConversationForTwoUsers(userSelf, userTo)
             }
 
-            firebaseService.sendFriendStatusUpdate(userSelf, userTo, FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus))
 
-            return SuccessResponse(true)
-        }
-        catch (e: Exception){
+
+            firebaseService.sendFriendStatusUpdate(
+                userSelf!!,
+                userTo!!,
+                FriendshipStatus.valueOf(updateFriendStatusRequest.friendshipStatus),
+                conversation
+            )
+
+            if(conversation != null){
+                return ConversationResponse( id = conversation.id,
+                    conversationName = conversationService.getConversationName(conversation, userSelf.id),
+                    lastUpdated = null
+                )
+            }
+            return ConversationResponse()
+
+        } catch (e: Exception) {
             println("Error updating friend status")
             println(e.stackTrace)
             println(e.message)
-            return SuccessResponse(false)
+            return ConversationResponse(success = false)
         }
 
     }
