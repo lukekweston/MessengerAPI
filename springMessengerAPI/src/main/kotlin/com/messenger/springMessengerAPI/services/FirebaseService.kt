@@ -107,7 +107,7 @@ class FirebaseService(
         }
 
         val data = mapOf(
-            "title" to if (friendshipStatus == FriendshipStatus.Friends) "${userTo.username} accepted your friend request!" else "",
+            "title" to if (friendshipStatus == FriendshipStatus.Friends) "${userFrom.username} accepted your friend request!" else "",
             "body" to "You can now start chatting",
             "type" to "friendStatusUpdate",
             "status" to friendshipStatus.toString(),

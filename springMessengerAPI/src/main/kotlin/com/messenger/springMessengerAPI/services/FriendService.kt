@@ -28,7 +28,8 @@ class FriendService(
             FriendResponse(
                 friendUserId = it.friendUserid,
                 friendUserName = userRepository.findUsersById(it.friendUserid)!!.username,
-                friendshipStatus = it.status
+                friendshipStatus = it.status,
+                conversationId =  conversationService.findAPrivateConversationForTwoUsers(userId, it.friendUserid)?.id
             )
         }
     }

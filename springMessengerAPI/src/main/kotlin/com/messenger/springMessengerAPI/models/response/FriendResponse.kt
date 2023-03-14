@@ -9,6 +9,8 @@ data class FriendResponse(
     @JsonProperty("friendUserName")
     val friendUserName: String,
     @JsonProperty("friendshipStatus")
-    val friendshipStatus: FriendshipStatus
+    val friendshipStatus: FriendshipStatus,
+    @JsonProperty("conversationId")
+    val conversationId: Int? = null
 
 )
