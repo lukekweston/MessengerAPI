@@ -1,6 +1,6 @@
 # MessengerAPI
 
 //todo
-1. generate firebase key to connect spring api with firebase so notifications can be sent to the app
 
-2. Add notes about setting location to save the images
+1. Add notes about setting location to save the images
+2. Add documentation for the end points - include postman?
