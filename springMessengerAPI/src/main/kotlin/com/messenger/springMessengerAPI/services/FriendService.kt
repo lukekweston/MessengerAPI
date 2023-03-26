@@ -13,6 +13,7 @@ import com.messenger.springMessengerAPI.repositories.FriendRepository
 import com.messenger.springMessengerAPI.repositories.UserConversationRepository
 import com.messenger.springMessengerAPI.repositories.UsersRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 
 @Service
@@ -135,6 +136,7 @@ class FriendService(
      * @return Success response true if method is completed without error, else false
      */
     //Todo - this method only supports FriendshipStatus of Friends, declined, removed - in the future can do more statuses
+    @Transactional
     fun updateFriendship(updateFriendStatusRequest: UpdateFriendStatusRequest): ConversationResponse {
         try {
             val userSelf = userRepository.findUsersById(updateFriendStatusRequest.selfUserId)

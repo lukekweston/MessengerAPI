@@ -114,7 +114,7 @@ class FirebaseService(
             "fromUserId" to userFrom.id.toString(),
             "fromUserName" to userFrom.username,
             "toUserId" to userTo!!.id.toString(),
-            "conversationId" to (conversation?.id.toString() ?: ""),
+            "conversationId" to (conversation?.id?.toString() ?: ""),
             "conversationName" to if (conversation != null) conversationService.getConversationName(
                 conversation,
                 userTo.id
