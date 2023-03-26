@@ -34,8 +34,6 @@ class FriendController(private val friendService: FriendService) {
         return friendService.updateFriendship(updateFriendshipRequest)
     }
 
-
-
 }
 
 

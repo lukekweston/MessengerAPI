@@ -13,5 +13,4 @@ class ConversationController(private val conversationService: ConversationServic
     fun getConversationsForUser(@PathVariable userId: Int): List<ConversationResponse?> =
         conversationService.getConversationsForUser(userId = userId)
 
-
 }

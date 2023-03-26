@@ -57,5 +57,4 @@ class MessageController(private val messageService: MessageService) {
         return messageService.getImageForMessage(messageId, lowRes = false)
     }
 
-
 }

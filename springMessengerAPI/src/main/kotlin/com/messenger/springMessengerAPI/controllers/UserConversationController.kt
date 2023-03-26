@@ -9,5 +9,4 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class UserConversationController(private val userConversationService: UserConversationService) {
 
-
 }
