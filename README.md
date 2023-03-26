@@ -34,7 +34,7 @@ This is basic documentation on what each endpoint does
 | GET /getAllMessagesForConversation/{conversationId} | {conversationId} conversationId to get all the messages for | Returns a list of all the messages for the conversation, only low res images are returned  |
 | GET /allMessagesForUser/{userId} | {userId} userId to get all the messages for | Gets all the messages for all the conversations that a user is involved in, only low res images are returned - used for populating the room database in the app when logging in a user to cache the data |
 | GET /getMessagesAfter | Request body including a userId and datetime for getting messages after | Gets all the messages after a current time point - will be used for if the user loses internet connection and then regains it |
-| POST /sendMessage | Request has a body that includes:<br> **userId** - user sending the message<br> **conversationId** - conversation the message is for\ **message** - text that the message contains\ **imageBase64FullRes** - full sized image as base64 encoded string\ **imageBase64LowRes** - compressed image as base64 encoded string (images are compressed in the app before they are sent) | |
+| POST /sendMessage | Request has a body that includes:<br> **userId** - user sending the message<br> **conversationId** - conversation the message is for<br> **message** - text that the message contains<br> **imageBase64FullRes** - full sized image as base64 encoded string<br> **imageBase64LowRes** - compressed image as base64 encoded string (images are compressed in the app before they are sent) | |
 
 
 
