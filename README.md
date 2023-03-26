@@ -47,6 +47,6 @@ This is basic documentation on what each endpoint does
 
 
 
-## Database diagram
+## Database diagram - including liquibase tables
 
 ![image](https://user-images.githubusercontent.com/49537169/227751348-bc0edb56-1aa9-44ee-af77-55d9b856a268.png)
