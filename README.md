@@ -23,9 +23,9 @@ This application also uses liquibase to handle/manage database changes.
 
 This is basic documentation on what each endpoint does
 
-| Syntax      | Description | Test Text     |
+| URL      | Parameters | Description of the endpoint |
 | :---        |    :----:   |          ---: |
-| Header      | Title       | Here's this   |
+| POST /loginUser     | Body including username, password and firebase registration token     | This endpoint checks the username and password are correct for a user, if they are it will set the firebase registration token for a user and return a boolean value that the user has logged in successfully along with the users details. If the password does not match it will return false |
 | Paragraph   | Text        | And more      |
 
 
