@@ -21,6 +21,8 @@ This application also uses liquibase to handle/manage database changes.
 
 **All API endpoints with example requests are in the postman collection that is part of this repo**
 
+![image](https://user-images.githubusercontent.com/49537169/227753427-98efc110-28bb-4859-b487-c60f6285a5e1.png)
+
 This is basic documentation on what each endpoint does
 
 | URL      | Parameters | Description of the endpoint |
