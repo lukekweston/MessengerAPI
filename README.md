@@ -19,10 +19,14 @@ This application also uses liquibase to handle/manage database changes.
 
 # API End points
 
-All api endpoints with example requests are in the postman collection that is part of this repo
+**All API endpoints with example requests are in the postman collection that is part of this repo**
 
+This is basic documentation on what each endpoint does
 
-
+| Syntax      | Description | Test Text     |
+| :---        |    :----:   |          ---: |
+| Header      | Title       | Here's this   |
+| Paragraph   | Text        | And more      |
 
 
 
