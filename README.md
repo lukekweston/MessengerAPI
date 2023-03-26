@@ -1,18 +1,18 @@
 # MessengerAPI
 
-This is a Kotlin SpringBoot MVC application that connects to a posgres database as well as firebase and has API endpoints for the messenger app to communicate with.
+This is a Kotlin SpringBoot MVC application that connects to a PostgreSQL database as well as Firebase and has API endpoints for the messenger app to communicate with
 
-This application also uses liquibase to handle/manage database changes.
+This application also uses Liquibase to handle/manage database changes.
 
 **Note: This is a work in progress, currently all endpoints do not require Auth and are unprotected**
 
 # Setup
 
 1) Update application.properties
-* Set the 'spring.datasource.url' to the location of your posgres database
+* Set the 'spring.datasource.url' to the location of your PostgreSQL database
 * Set the username and password if required
 * Set the locations where the full res and low res images will be stored 'app.upload-full-res.dir' and 'app.upload-low-res.dir'
-* Set the port which you would like the API to be visible on - you may need to change firewall rules for this port to allow incoming traffic, basic windows 10 instructions are at the bottom of this file
+* Set the port which you would like the API to be visible on - you may need to change firewall rules for this port to allow incoming traffic, basic windows 10 instructions are at the bottom of the application.properties file
 
 2) You will need to set up firebase-service-account.json, instructions for this are in this file
 
@@ -27,7 +27,7 @@ This is basic documentation on what each endpoint does
 
 | URL      | Parameters | Description of the endpoint |
 | :---        |    :----   |          :--- |
-| POST /loginUser     | Body including username, password and firebase registration token     | Checks the username and password are correct for a user, if they are it will set the firebase registration token for a user and return a boolean value that the user has logged in successfully along with the users details. If the password does not match it will return false |
+| POST /loginUser     | Body including username, password and firebase registration token     | Checks the username and password are correct for a user, if they are it will set the Firebase registration token for a user and return a boolean value that the user has logged in successfully along with the user's details. If the password does not match it will return false |
 | POST /logoutUser   | Body including userId and username        | Deletes the firebase registration token, unlinking the device to the logged in user  |
 | GET /getUsername/{id} | {id} the userId to get the userName for | Gets the username for a specific userId |
 | POST /checkFCMRegToken |  Body including userId and firebase registration token | Used to check the user hasn't logged in on another device |
