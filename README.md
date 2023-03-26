@@ -8,7 +8,14 @@ This application also uses liquibase to handle/manage database changes.
 
 # Setup
 
-1) 
+1) Update application.properties
+* Set the 'spring.datasource.url' to the location of your posgres database
+* Set the username and password if required
+* Set the locations where the full res and low res images will be stored 'app.upload-full-res.dir' and 'app.upload-low-res.dir'
+* Set the port which you would like the API to be visible on - you may need to change firewall rules for this port to allow incoming traffic, basic windows 10 instructions are at the bottom of this file
+
+2) You will need to set up firebase-service-account.json, instructions for this are in this file
+
 
 # API End points
 
