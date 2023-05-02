@@ -8,7 +8,7 @@ This application also uses Liquibase to handle/manage database changes.
 
 # Setup
 
-1) Update application.properties (edit "edit application.properties)
+1) Update application.properties (edit "edit application.properties")
 * Set the 'spring.datasource.url' to the location of your PostgreSQL database
 * Set the username and password if required
 * Set the locations where the full res and low res images will be stored 'app.upload-full-res.dir' and 'app.upload-low-res.dir'
