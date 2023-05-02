@@ -40,3 +40,6 @@ out/
 ### Secret key to connect the api to the app
 ### generate this key on firebase
 firebase-service-account.json
+
+###Set up application properties - hide database secrets
+application.properties
