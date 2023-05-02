@@ -35,7 +35,6 @@ class UsersController(private val usersService: UsersService) {
            throw ResourceNotFoundException("Username not found for user $id")
        }
        return userName
-       return userName
     }
 
 
