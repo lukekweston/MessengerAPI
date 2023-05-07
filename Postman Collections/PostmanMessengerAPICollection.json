@@ -7,7 +7,7 @@
 	"item": [
 		{
 			"name": "Login user",
-			"_postman_id": "83948f56-b86d-4b0a-a72f-75f3da4f52ad",
+			"id": "83948f56-b86d-4b0a-a72f-75f3da4f52ad",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -29,7 +29,7 @@
 		},
 		{
 			"name": "Logout user",
-			"_postman_id": "635baad7-ebfc-46ea-a59b-514a37aabdaf",
+			"id": "635baad7-ebfc-46ea-a59b-514a37aabdaf",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -51,7 +51,7 @@
 		},
 		{
 			"name": "Check FcmRegToken of user",
-			"_postman_id": "508c4d2a-d32f-4843-93f8-6038c0dcec1c",
+			"id": "508c4d2a-d32f-4843-93f8-6038c0dcec1c",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -73,20 +73,20 @@
 		},
 		{
 			"name": "Get Conversations for a user",
-			"_postman_id": "602c7df2-d438-4c6b-adfb-56b8a3e2884f",
+			"id": "602c7df2-d438-4c6b-adfb-56b8a3e2884f",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{url}}/getConversationsForUser/1"
+				"url": "{{url}}/conversationsForUser/1"
 			},
 			"response": []
 		},
 		{
 			"name": "Get Username by id",
-			"_postman_id": "1936b899-11a1-4c13-8e44-00cf9ca3bcf3",
+			"id": "1936b899-11a1-4c13-8e44-00cf9ca3bcf3",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -99,7 +99,7 @@
 		},
 		{
 			"name": "Get all messages for user",
-			"_postman_id": "dc05372b-5573-4fe2-81e9-d244821e6660",
+			"id": "dc05372b-5573-4fe2-81e9-d244821e6660",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -112,7 +112,7 @@
 		},
 		{
 			"name": "Get Messages after date time for user",
-			"_postman_id": "a533f685-e683-49b3-929c-b08ae5b7ec86",
+			"id": "a533f685-e683-49b3-929c-b08ae5b7ec86",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -134,7 +134,7 @@
 		},
 		{
 			"name": "Send Message",
-			"_postman_id": "49c182dc-98c5-4909-9245-b55f1caa25ac",
+			"id": "49c182dc-98c5-4909-9245-b55f1caa25ac",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -156,7 +156,7 @@
 		},
 		{
 			"name": "Send Image",
-			"_postman_id": "88a7211e-da9b-4e9c-9840-412072f83f68",
+			"id": "88a7211e-da9b-4e9c-9840-412072f83f68",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -178,7 +178,7 @@
 		},
 		{
 			"name": "Low Res message image",
-			"_postman_id": "c241b8bc-a98a-4c9b-93fd-cc7535fd2a15",
+			"id": "c241b8bc-a98a-4c9b-93fd-cc7535fd2a15",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -200,7 +200,7 @@
 		},
 		{
 			"name": "Full Res message image Copy",
-			"_postman_id": "dfad3240-6dc9-4cf1-a22c-e3d6eb1a9da8",
+			"id": "dfad3240-6dc9-4cf1-a22c-e3d6eb1a9da8",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -222,7 +222,7 @@
 		},
 		{
 			"name": "Update Message",
-			"_postman_id": "511c9be4-89b3-464f-b292-65fef988e238",
+			"id": "511c9be4-89b3-464f-b292-65fef988e238",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -244,20 +244,19 @@
 		},
 		{
 			"name": "Get all friends for user",
-			"_postman_id": "b0d13d9c-570b-4960-89a1-584557a7303a",
+			"id": "b0d13d9c-570b-4960-89a1-584557a7303a",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
-				"url": null
+				"header": []
 			},
 			"response": []
 		},
 		{
 			"name": "Delete message",
-			"_postman_id": "7ab2f42f-8b9d-422f-ac15-01626ffd0618",
+			"id": "7ab2f42f-8b9d-422f-ac15-01626ffd0618",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -270,33 +269,31 @@
 		},
 		{
 			"name": "Update friendship status",
-			"_postman_id": "5f89f236-2a64-4309-ae1f-3701f0408af1",
+			"id": "5f89f236-2a64-4309-ae1f-3701f0408af1",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
-				"url": null
+				"header": []
 			},
 			"response": []
 		},
 		{
 			"name": "New Friend Request",
-			"_postman_id": "97ff25a4-9168-4086-a6c7-35d7b478d8bd",
+			"id": "97ff25a4-9168-4086-a6c7-35d7b478d8bd",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
-				"url": null
+				"header": []
 			},
 			"response": []
 		},
 		{
 			"name": "Get Or Start New Private conversation",
-			"_postman_id": "2fcc0312-903a-4a01-8b10-e55f9d547259",
+			"id": "2fcc0312-903a-4a01-8b10-e55f9d547259",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
