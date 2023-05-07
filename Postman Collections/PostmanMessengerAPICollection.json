@@ -194,7 +194,7 @@
 						}
 					}
 				},
-				"url": "{{url}}/getLowResImageForMessage/100"
+				"url": "{{url}}/message/5/lowResImage"
 			},
 			"response": []
 		},
