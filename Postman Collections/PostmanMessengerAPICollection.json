@@ -93,7 +93,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{url}}/getUsername/1"
+				"url": "{{url}}/user/1/username"
 			},
 			"response": []
 		},
