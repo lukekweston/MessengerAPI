@@ -128,7 +128,7 @@
 						}
 					}
 				},
-				"url": "{{url}}/getMessagesAfter"
+				"url": "{{url}}/messagesAfter"
 			},
 			"response": []
 		},
