@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class MessageController(private val messageService: MessageService) {
-    @GetMapping("/getAllMessagesForConversation/{conversationId}")
+    @GetMapping("/allMessagesForConversation/{conversationId}")
     fun getAllMessagesForConversation(@PathVariable conversationId: Int): List<MessageResponse> =
         messageService.getAllMessagesForConversation(conversationId = conversationId)
 
@@ -25,7 +25,7 @@ class MessageController(private val messageService: MessageService) {
     fun getAllMessagesForUser(@PathVariable userId: Int): List<MessageResponse> =
         messageService.getAllMessagesForUser(userId)
 
-    @GetMapping("/getMessagesAfter")
+    @GetMapping("/messagesAfter")
     fun getAllMessagesForUserAfterDateTime(@RequestBody messagesForUserAfterDateRequest: MessagesForUserAfterDateRequest): List<MessageResponse> =
         messageService.getAllMessagesForUserAfterDateTime(
             messagesForUserAfterDateRequest.userId,
@@ -44,15 +44,15 @@ class MessageController(private val messageService: MessageService) {
 
 
     //This method should really have auth as only the user who created this message should be able to delete it
-    @DeleteMapping("/deleteMessage/{messageId}")
+    @DeleteMapping("/message/{messageId}")
     fun deleteMessage(@PathVariable messageId: Int) = messageService.deleteMessage(messageId)
 
-    @GetMapping("/getLowResImageForMessage/{messageId}")
+    @GetMapping("/message/{messageId}/lowResImage")
     fun getLowResImageForMessage(@PathVariable messageId: Int): ImageResponse {
         return messageService.getImageForMessage(messageId)
     }
 
-    @GetMapping("/getFullResImageForMessage/{messageId}")
+    @GetMapping("/message/{messageId}/fullResImage")
     fun getFullResImageForMessage(@PathVariable messageId: Int): ImageResponse {
         return messageService.getImageForMessage(messageId, lowRes = false)
     }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ConversationController(private val conversationService: ConversationService) {
-    @GetMapping("/getConversationsForUser/{userId}")
+    @GetMapping("/conversationsForUser/{userId}")
     fun getConversationsForUser(@PathVariable userId: Int): List<ConversationResponse?> =
         conversationService.getConversationsForUser(userId = userId)
 

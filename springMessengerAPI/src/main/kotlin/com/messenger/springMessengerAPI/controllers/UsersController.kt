@@ -28,7 +28,7 @@ class UsersController(private val usersService: UsersService) {
     @PostMapping("/logoutUser")
     fun logoutUser(@RequestBody userLogoutRequest: UserLogoutRequest) : SuccessResponse  = usersService.logoutUser(userLogoutRequest)
 
-   @GetMapping("/getUsername/{id}")
+   @GetMapping("/user/{id}/username")
     fun getUsernameById(@PathVariable id: Int): String {
         val userName = usersService.findUsernameById(id)
        if(userName.isNullOrEmpty()){
