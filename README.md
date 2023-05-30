@@ -13,8 +13,14 @@ This application also uses Liquibase to handle/manage database changes.
 * Set the username and password if required
 * Set the locations where the full res and low res images will be stored 'app.upload-full-res.dir' and 'app.upload-low-res.dir'
 * Set the port which you would like the API to be visible on - you may need to change firewall rules for this port to allow incoming traffic, basic windows 10 instructions are at the bottom of the application.properties file
+* Set up the ssl certificates - look at setup step 3 for instructions on this
 
 2) You will need to set up firebase-service-account.json, instructions for this are in this file
+
+3) Set up ssl key
+    1) Generate a self-singed certificate, this is set up with key named as keystore.p12 and the key alias tomcat  
+      Ubuntu command - ```keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore.p12 -validity 3650```  
+    2) Copy this key and put it in under the resources directory - gitignore is set to ignore keystore.p12
 
 
 # API End points
